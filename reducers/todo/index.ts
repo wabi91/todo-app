@@ -1,24 +1,26 @@
 import { handleActions } from 'redux-actions';
-import types from '../../constants/actionTypes';
+import types from '../../actionTypes/actionTypes';
 
 interface Item {
-  value: string;
+  id: string;
+  contents: string;
+  createdAt: string;
+  updatedAt: string;
+  relationIds: [number];
 };
 
 export interface InitialState {
-  item: Item;
+  items: Item[];
   count: number;
 };
 
 export const initialState: InitialState = {
-  item: {
-    value: '',
-  },
+  items: [],
   count: 0,
 };
 
 export default handleActions({
-  [types.INCREASE]: (state: object, { payload: count }) => ({
+  [types.todo.INCREASE]: (state: object, { payload: count }) => ({
     ...state,
     count,
   }),
