@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import todo, {
   initialState as todoState,
-  InitialState as TodoState
+  initialStateType as todoStateType,
 } from './todo';
 import * as todoSelector from './todo/selector';
 
-export type InitialStateType = {
-  todo: TodoState,
+export type initialStateType = {
+  todo: todoStateType,
 };
 
 export const initialState = {

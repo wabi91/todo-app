@@ -4,6 +4,7 @@ import App from 'next/app';
 import Head from 'next/head'
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
+import withReduxSaga from 'next-redux-saga';
 
 // NOTE: material-ui setup
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -11,13 +12,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import theme from '../styles/theme';
 
-import store, { Store } from '../store';
+import store from '../store';
 
-interface MyAppProps extends NextPageContext {
-  store: Store;
-}
-
-class MyApp extends App<MyAppProps> {
+class MyApp extends App<NextPageContext> {
   static async getInitialProps({ Component, ctx }) {
     const pageProps = Component.getInitialProps
       ? await Component.getInitialProps(ctx)
@@ -55,4 +52,4 @@ class MyApp extends App<MyAppProps> {
   }
 }
 
-export default withRedux(store)(MyApp);
+export default withRedux(store)(withReduxSaga(MyApp));

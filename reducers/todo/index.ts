@@ -1,27 +1,38 @@
-import { handleActions } from 'redux-actions';
-import types from '../../actionTypes/actionTypes';
+import { createReducer } from 'typesafe-actions';
+import produce from "immer"
 
-interface Item {
-  id: string;
+import types from '../../actionTypes';
+import { todoActions } from '../../actions/todo';
+
+type Item = {
   contents: string;
-  createdAt: string;
-  updatedAt: string;
-  relationIds: [number];
+  isDone: boolean;
 };
 
-export interface InitialState {
+export interface initialStateType {
   items: Item[];
-  count: number;
+  flag: boolean;
 };
 
-export const initialState: InitialState = {
-  items: [],
-  count: 0,
+export const initialState: initialStateType = {
+  items: [
+    {
+      contents: 'test first item',
+      isDone: false,
+    },
+  ],
+  flag: false,
 };
 
-export default handleActions({
-  [types.todo.INCREASE]: (state: object, { payload: count }) => ({
-    ...state,
-    count,
-  }),
-}, initialState);
+export default createReducer<initialStateType, todoActions>(initialState, {
+  [types.todo.ADD_TODO]: (state, { payload: item }) => {
+    return produce(state, (draft) => {
+      draft.items.push(item);
+    });
+  },
+  [types.todo.SAGA_TEST_SUCCESS]: (state, { payload: flag }) => {
+    return produce(state, (draft) => {
+      draft.flag = flag;
+    });
+  },
+});

@@ -1,5 +1,9 @@
-import { InitialState } from './';
+import { initialStateType } from './';
 
-export const selectCount = (state: {
-  todo: InitialState;
-}) => state.todo.count;
+export const getItems = (state: {
+  todo: initialStateType;
+}) => state.todo.items;
+
+export const getFlag = (state: {
+  todo: initialStateType;
+}) => state.todo.flag;
